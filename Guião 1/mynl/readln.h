@@ -1,5 +1,5 @@
-#ifndef __READLN_H
-#define __READLN_H
+#ifndef READLN_H
+#define READLN_H
 
 #include <stdlib.h>
 #include <sys/types.h>
