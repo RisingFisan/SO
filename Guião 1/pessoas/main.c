@@ -31,6 +31,7 @@ int main(int argc, char const *argv[]) {
 
             if(write(fd, &person, sizeof(struct person)) < 1) {
                 puts("ERROR - Couldn't write to registry file.");
+                close(fd);
                 return 1;
             }
 
@@ -48,6 +49,7 @@ int main(int argc, char const *argv[]) {
             int fd = open("registo", O_RDWR);
             if(fd == -1) {
                 puts("ERROR - Couldn't open registry file.");
+                return 1;
             }
 
             int registry = -1;
@@ -62,6 +64,7 @@ int main(int argc, char const *argv[]) {
                     lseek(fd, - sizeof(struct person), SEEK_CUR);
                     if(write(fd, &person, sizeof(struct person)) < 1) {
                         puts("ERROR - Couldn't write to registry file.");
+                        close(fd);
                         return 1;
                     }
                     puts("Update successful");
