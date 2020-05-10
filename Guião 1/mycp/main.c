@@ -23,7 +23,7 @@ int main(int argc, char const *argv[]) {
     int source = open(argv[1], O_RDONLY);
     if(source == -1) {
         printf("ERROR - %s - No such file or directory\n", argv[1]);
-        return 1;
+        exit(1);
     }
 
     int dest = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
