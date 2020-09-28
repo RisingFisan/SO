@@ -17,18 +17,21 @@ int main(int argc, char const *argv[]) {
         execlp("ls", "ls", "/etc", NULL);
         _exit(1);
     }
-    else if (fork() == 0) {
-        close(pipe_fd[1]);
+    
+    close(pipe_fd[1]);
+
+    if (fork() == 0) {
+        
         dup2(pipe_fd[0], STDIN_FILENO);
         close(pipe_fd[0]);
         execlp("wc", "wc", "-l", NULL);
         _exit(1);
     }
-    else {
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-        if (wait(NULL) == -1) puts("Error");
-        if (wait(NULL) == -1) puts("Error");
-    }
+
+    close(pipe_fd[0]);
+
+    if (wait(NULL) == -1) puts("Error");
+    if (wait(NULL) == -1) puts("Error");
+
     return 0;
 }

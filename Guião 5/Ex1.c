@@ -20,8 +20,8 @@ int main(int argc, char const *argv[]) {
         char buf[10];
         // puts("Esperando...");
         int bytes = read(pipe_fd[0], buf, 10);
-
-        printf("li %d bytes: %s\n", bytes, buf);
+        close(pipe_fd[0]);
+        write(STDOUT_FILENO, buf, bytes);
         _exit(0);
     } else {
         close(pipe_fd[0]);
@@ -29,7 +29,8 @@ int main(int argc, char const *argv[]) {
         // Temos extremidade de escrita do pipe.
         char * str = "teste";
         // sleep(5);
-        write(pipe_fd[1], str, strlen(str) + 1);
+        write(pipe_fd[1], str, strlen(str));
+        close(pipe_fd[1]);
         // comunicação pai -> filho
         wait(NULL);
     }
